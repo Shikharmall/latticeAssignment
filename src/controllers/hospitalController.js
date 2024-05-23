@@ -5,7 +5,6 @@ const registerHospital = async (req, res, next) => {
   try {
     const { name } = req.body;
 
-    // Create the hospital
     const hospital = await db.hospitals.create({
       name,
     });
@@ -13,7 +12,7 @@ const registerHospital = async (req, res, next) => {
       .status(201)
       .json({ hospital, message: "Hospital registered successfully" });
   } catch (error) {
-    console.error(error);
+    //console.error(error);
     return next(new ApiError(error.message, 500));
     //res.status(500).json({ message: "Internal server error" });
   }

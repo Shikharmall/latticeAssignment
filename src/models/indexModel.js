@@ -32,6 +32,9 @@ sequelize
 
 const db = {};
 
+db.Sequelize = Sequelize;
+db.sequelize = sequelize;
+
 db.patients = patientModel(sequelize, DataTypes);
 db.hospitals = hospitalModel(sequelize, DataTypes);
 db.psychiatrists = psychiatristModel(sequelize, DataTypes);
@@ -40,6 +43,11 @@ db.hospitals.hasMany(db.psychiatrists, { foreignKey: 'hospitalId' });
 db.psychiatrists.belongsTo(db.hospitals, { foreignKey: 'hospitalId' });
 db.psychiatrists.hasMany(db.patients, { foreignKey: 'psychiatristId' });
 db.patients.belongsTo(db.psychiatrists, { foreignKey: 'psychiatristId' });
+
+db.sequelize.sync({force: false})
+.then(() => {
+    console.log('Drop and re-sync db.');
+});
 
 export default db;
 

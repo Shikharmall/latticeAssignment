@@ -9,6 +9,7 @@ app.use(express.urlencoded({ extended: true }));
 import patientRoutes from "./src/routes/patientRoutes.js";
 import hospitalRoutes from "./src/routes/hospitalRoutes.js";
 import psychiatristRoutes from "./src/routes/psychiatristRoutes.js";
+
 app.use("/api/v1/patient", patientRoutes);
 app.use("/api/v1/hospital", hospitalRoutes);
 app.use("/api/v1/psychiatrist", psychiatristRoutes);
