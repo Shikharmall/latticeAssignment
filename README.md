@@ -7,8 +7,8 @@
       npm install
       nodemon index.js
    ### API
-      Postman link - https://api.postman.com/collections/31807642-acb8865f-385b-4244-b42c-f9ec0caf5083?access_key=PMAT-01HYJ6Q40PJ7HMAD3959ZRSK7G
-      
+      Postman link - https://api.postman.com/collections/31807642-acb8865f-385b-4244-b42c-f9ec0caf5083?access_key=PMAT-01HYJ6Q40PJ7HMAD3959ZRSK7G (paste this link in postman to access the api)
+
       base_url = http://localhost:8080/api/v1
 
       Create hospital
