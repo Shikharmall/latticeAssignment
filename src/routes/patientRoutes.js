@@ -9,9 +9,7 @@ const storage = multer.diskStorage({
     cb(null, "src/uploads/");
   },
   filename: function (req, file, cb) {
-    // Extracting the file extension
     const ext = file.originalname.split(".").pop();
-    // Generating a unique filename with the original file extension
     cb(null, file.fieldname + "-" + Date.now() + "." + ext);
   },
 });
