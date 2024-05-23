@@ -1,6 +1,7 @@
 import db from "../models/indexModel.js";
+import { ApiError } from "../utils/APiError.js";
 
-const registerPatient = async (req, res) => {
+const registerPatient = async (req, res, next) => {
   try {
     const { name, address, email, phoneNumber, password, psychiatristId } =
       req.body;
@@ -20,7 +21,8 @@ const registerPatient = async (req, res) => {
       .json({ patient, message: "Patient registered successfully" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Internal server error" });
+    return next(new ApiError(error.message, 500));
+    //res.status(500).json({ message: "Internal server error" });
   }
 };
 

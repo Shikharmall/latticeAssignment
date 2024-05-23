@@ -4,7 +4,6 @@ import patientModel from "./patientModel.js";
 import hospitalModel from "./hospitalModel.js";
 import psychiatristModel from "./psychiatristModel.js";
 
-// Initialize the Sequelize instance
 const sequelize = new Sequelize(
   dbConfig.database,
   dbConfig.username,
@@ -18,11 +17,10 @@ const sequelize = new Sequelize(
       acquire: dbConfig.pool.acquire,
       idle: dbConfig.pool.idle,
     },
-    logging: false, // It's generally a good idea to disable logging in production
+    logging: false,
   }
 );
 
-// Authenticate the Sequelize instance
 sequelize
   .authenticate()
   .then(() => {
@@ -32,22 +30,16 @@ sequelize
     console.error("Unable to connect to the database:", err);
   });
 
-// Initialize the db object
 const db = {};
 
-// Assigning patients property of db using patientModel function
 db.patients = patientModel(sequelize, DataTypes);
 db.hospitals = hospitalModel(sequelize, DataTypes);
 db.psychiatrists = psychiatristModel(sequelize, DataTypes);
 
+db.hospitals.hasMany(db.psychiatrists, { foreignKey: 'hospitalId' });
+db.psychiatrists.belongsTo(db.hospitals, { foreignKey: 'hospitalId' });
+db.psychiatrists.hasMany(db.patients, { foreignKey: 'psychiatristId' });
+db.patients.belongsTo(db.psychiatrists, { foreignKey: 'psychiatristId' });
+
 export default db;
 
-//const Patient = require("./patient")(sequelize);
-//const Hospital = require("./hospital")(sequelize);
-//const Psychiatrist = require("./psychiatrist")(sequelize);
-//const Patient = require("./patient")(sequelize);
-//
-//Hospital.hasMany(Psychiatrist);
-//Psychiatrist.belongsTo(Hospital);
-//Psychiatrist.hasMany(Patient);
-//Patient.belongsTo(Psychiatrist);
